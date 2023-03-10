@@ -7,9 +7,6 @@ getClientKey().then((clientKey) => {
         merchantId: "2H3SV6643H24E",
         intent: "capture"
       },
-      onClick: () => {
-        console.log("PayPal Payment")
-      }
     };
 
   
