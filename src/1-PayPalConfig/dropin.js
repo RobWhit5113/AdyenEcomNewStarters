@@ -35,13 +35,13 @@ getClientKey().then((clientKey) => {
       },
 
       onSubmit: (state, dropin) => {
-        console.log("state Data hererererere", state.data)
+        // console.log("state Data hererererere", state.data)
         makePayment(state.data)
           .then((response) => {
             dropin.setStatus("loading");
             if (response.action) {
-              console.log('onSubmit about to be handled with --', response)
-              // dropin.handleAction(response.action);
+              // console.log('onSubmit about to be handled with --', response)
+              dropin.handleAction(response.action);
             } else if (response.resultCode === "Authorised") {
               dropin.setStatus("success", { message: "Payment successful!" });
               setTimeout(function () {
@@ -69,8 +69,8 @@ getClientKey().then((clientKey) => {
 
       onAdditionalDetails: (state, dropin) => {
 
-        console.log("STATE.DATA OBJECT", state.data)
-        // console.log(JSON.stringify(state))
+        console.log("details is firing")
+        // // console.log(JSON.stringify(state))
         submitDetails(state.data)
         // console.log("Below submitDetails", JSON.stringify(state.data.details))
           .then((response) => {
@@ -124,11 +124,11 @@ async function handleRedirectResult(redirectResult) {
     })
     .mount("#dropin-container");
 
-    console.log('im redirect result', redirectResult);
+    // console.log('im redirect result', redirectResult);
 
   submitDetails({ details: { redirectResult } }).then((response) => {
 
-    console.log(response);
+    // console.log(response);
 
     if (response.resultCode === "Authorised") {
       document.getElementById("result-container").innerHTML =
