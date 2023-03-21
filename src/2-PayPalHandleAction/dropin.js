@@ -21,13 +21,8 @@ getClientKey().then((clientKey) => {
         amex: {icon: 'https://checkoutshopper-test.adyen.com/checkoutshopper/images/logos/visa.svg'}
       },
 
-      //comment out to break paypal config
       paymentMethodsConfiguration: {
         paypal: paypalConfiguration,
-        // card: {
-        //   hasHolderName: true,
-        //   amount: 1000
-        // },
       },
       
       onChange: (state, component) => {
@@ -35,13 +30,11 @@ getClientKey().then((clientKey) => {
       },
 
       onSubmit: (state, dropin) => {
-        // console.log("state Data hererererere", state.data)
         makePayment(state.data)
           .then((response) => {
             dropin.setStatus("loading");
             if (response.action) {
-              // console.log('onSubmit about to be handled with --', response)
-              dropin.handleAction(response.action);
+              // dropin.handleAction(response.action); THIS IS THE ISSUE HERE!!!
             } else if (response.resultCode === "Authorised") {
               dropin.setStatus("success", { message: "Payment successful!" });
               setTimeout(function () {
@@ -64,18 +57,12 @@ getClientKey().then((clientKey) => {
       dropin.setStatus("error", {message: "help im broken"})
       },
 
-      //gets completed when the Identify shopper is completed and ChallengeShopper
-      //triggered when a native action has occurred (native 3ds, paypal)
-
       onAdditionalDetails: (state, dropin) => {
 
         console.log("details is firing")
-        // // console.log(JSON.stringify(state))
         submitDetails(state.data)
-        // console.log("Below submitDetails", JSON.stringify(state.data.details))
           .then((response) => {
             if (response.action) {
-              // console.log("there is an additional action returned from the first action", response.action)
               dropin.handleAction(response.action);
             } else if (response.resultCode === "Authorised") {
               dropin.setStatus("success", { message: "Payment successful!" });
@@ -93,7 +80,7 @@ getClientKey().then((clientKey) => {
           });
       },
     };
-    // console.log(paymentMethodsResponse.paymentMethods[1].brands.pop());
+
     // 1. Create an instance of AdyenCheckout
     const checkout = await AdyenCheckout(configuration);
 
@@ -124,11 +111,7 @@ async function handleRedirectResult(redirectResult) {
     })
     .mount("#dropin-container");
 
-    // console.log('im redirect result', redirectResult);
-
   submitDetails({ details: { redirectResult } }).then((response) => {
-
-    // console.log(response);
 
     if (response.resultCode === "Authorised") {
       document.getElementById("result-container").innerHTML =
