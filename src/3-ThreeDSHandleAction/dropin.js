@@ -8,6 +8,12 @@ getClientKey().then((clientKey) => {
         intent: "capture"
       },
     };
+
+    const sepaConfiguration = {
+      configuration: {
+        billingAddressRequired: true
+      }
+    }
   
     const configuration = {
       environment: "test",
@@ -22,6 +28,7 @@ getClientKey().then((clientKey) => {
 
       paymentMethodsConfiguration: {
         paypal: paypalConfiguration,
+        sepa: sepaConfiguration
       },
       
       onChange: (state, component) => {
@@ -33,7 +40,7 @@ getClientKey().then((clientKey) => {
           .then((response) => {
             dropin.setStatus("loading");
             if (response.action) {
-              // dropin.handleAction(response.action); SAME MECHANISM AS THE PAYPAL ISSUE! YAY handleAction
+              // dropin.handleAction(response.action);
             } else if (response.resultCode === "Authorised") {
               dropin.setStatus("success", { message: "Payment successful!" });
               setTimeout(function () {

@@ -29,7 +29,7 @@ const paymentsDefaultConfig = {
   },
   additionalData: {
     //Change to false to force 3DS redirect
-    allow3DS2: false
+    allow3DS2: true
   },
   lineItems: [
     {

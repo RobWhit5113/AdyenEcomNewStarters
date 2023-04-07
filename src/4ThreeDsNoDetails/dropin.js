@@ -2,16 +2,19 @@
 getClientKey().then((clientKey) => {
   getPaymentMethods().then(async (paymentMethodsResponse) => {
     
-    //THIS CONFIG IS THE PROBLEM!! real ID is 2H3SV6643H24E
     const paypalConfiguration = {
       configuration: {
-        merchantId: "2H3SV6643H22343215",
+        merchantId: "2H3SV6643H24E",
         intent: "capture"
       },
     };
 
+    const sepaConfiguration = {
+      configuration: {
+        billingAddressRequired: true
+      }
+    }
   
-    //global config
     const configuration = {
       environment: "test",
       clientKey: clientKey, // Mandatory. clientKey from Customer Area
@@ -22,9 +25,10 @@ getClientKey().then((clientKey) => {
         amex: {icon: 'https://checkoutshopper-test.adyen.com/checkoutshopper/images/logos/visa.svg'}
       },
 
-      
+
       paymentMethodsConfiguration: {
         paypal: paypalConfiguration,
+        sepa: sepaConfiguration
       },
       
       onChange: (state, component) => {
@@ -59,27 +63,27 @@ getClientKey().then((clientKey) => {
       dropin.setStatus("error", {message: "help im broken"})
       },
 
-      onAdditionalDetails: (state, dropin) => {
+      // onAdditionalDetails: (state, dropin) => {
         
-        submitDetails(state.data)
-          .then((response) => {
-            if (response.action) {
-              dropin.handleAction(response.action);
-            } else if (response.resultCode === "Authorised") {
-              dropin.setStatus("success", { message: "Payment successful!" });
-              setTimeout(function () {
-                dropin.setStatus("ready");
-              }, 2000);
-            } else if (response.resultCode !== "Authorised") {
-              setTimeout(function () {
-                dropin.setStatus("ready");
-              }, 2000);
-            }
-          })
-          .catch((error) => {
-            throw Error(error);
-          });
-      },
+      //   submitDetails(state.data)
+      //     .then((response) => {
+      //       if (response.action) {
+      //         dropin.handleAction(response.action);
+      //       } else if (response.resultCode === "Authorised") {
+      //         dropin.setStatus("success", { message: "Payment successful!" });
+      //         setTimeout(function () {
+      //           dropin.setStatus("ready");
+      //         }, 2000);
+      //       } else if (response.resultCode !== "Authorised") {
+      //         setTimeout(function () {
+      //           dropin.setStatus("ready");
+      //         }, 2000);
+      //       }
+      //     })
+      //     .catch((error) => {
+      //       throw Error(error);
+      //     });
+      // },
     };
     
     // 1. Create an instance of AdyenCheckout
@@ -112,16 +116,16 @@ async function handleRedirectResult(redirectResult) {
     })
     .mount("#dropin-container");
 
-  submitDetails({ details: { redirectResult } }).then((response) => {
+  // submitDetails({ details: { redirectResult } }).then((response) => {
 
-    if (response.resultCode === "Authorised") {
-      document.getElementById("result-container").innerHTML =
-        '<img alt="Success" src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/components/success.svg">';
-    } else if (response.resultCode !== "Authorised") {
-      document.getElementById("result-container").innerHTML =
-        '<img alt="Error" src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/components/error.svg">';
-    }
-  });
+  //   if (response.resultCode === "Authorised") {
+  //     document.getElementById("result-container").innerHTML =
+  //       '<img alt="Success" src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/components/success.svg">';
+  //   } else if (response.resultCode !== "Authorised") {
+  //     document.getElementById("result-container").innerHTML =
+  //       '<img alt="Error" src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/components/error.svg">';
+  //   }
+  // });
 }
 
 const getSearchParameters = (search = window.location.search) =>
