@@ -31,9 +31,6 @@ getClientKey().then((clientKey) => {
         sepa: sepaConfiguration
       },
       
-      onChange: (state, component) => {
-        updateStateContainer(state); // Demo purposes only
-      },
 
       onSubmit: (state, dropin) => {
         makePayment(state.data)
@@ -116,16 +113,16 @@ async function handleRedirectResult(redirectResult) {
     })
     .mount("#dropin-container");
 
-  // submitDetails({ details: { redirectResult } }).then((response) => {
+  submitDetails({ details: { redirectResult } }).then((response) => {
 
-  //   if (response.resultCode === "Authorised") {
-  //     document.getElementById("result-container").innerHTML =
-  //       '<img alt="Success" src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/components/success.svg">';
-  //   } else if (response.resultCode !== "Authorised") {
-  //     document.getElementById("result-container").innerHTML =
-  //       '<img alt="Error" src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/components/error.svg">';
-  //   }
-  // });
+    if (response.resultCode === "Authorised") {
+      document.getElementById("result-container").innerHTML =
+        '<img alt="Success" src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/components/success.svg">';
+    } else if (response.resultCode !== "Authorised") {
+      document.getElementById("result-container").innerHTML =
+        '<img alt="Error" src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/components/error.svg">';
+    }
+  });
 }
 
 const getSearchParameters = (search = window.location.search) =>

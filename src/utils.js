@@ -8,11 +8,10 @@ function setReturnUrl() {
 
 const paymentMethodsConfig = {
   reference: Math.random(),
-  countryCode: "BE",
-  shopperLocale: "en-GB",
-  shopperReference: "alex",
+  countryCode: "US",
+  shopperReference: "testPerson",
   amount: {
-    value: 7834,
+    value: 1000,
     currency: "USD",
   },
 };
@@ -20,7 +19,7 @@ const paymentMethodsConfig = {
 const paymentsDefaultConfig = {
   shopperReference: "Checkout Components sample code test",
   reference: "Checkout Components sample code test",
-  countryCode: "NL",
+  countryCode: "US",
   channel: "Web",
   returnUrl: setReturnUrl(),
   amount: {

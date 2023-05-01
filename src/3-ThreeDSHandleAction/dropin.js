@@ -31,9 +31,6 @@ getClientKey().then((clientKey) => {
         sepa: sepaConfiguration
       },
       
-      onChange: (state, component) => {
-        updateStateContainer(state); // Demo purposes only
-      },
 
       onSubmit: (state, dropin) => {
         makePayment(state.data)

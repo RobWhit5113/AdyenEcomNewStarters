@@ -1,6 +1,8 @@
 // 0. Get clientKey
 getClientKey().then((clientKey) => {
   getPaymentMethods().then(async (paymentMethodsResponse) => {
+
+    console.log(paymentMethodsResponse)
     
     const paypalConfiguration = {
       configuration: {
@@ -15,19 +17,12 @@ getClientKey().then((clientKey) => {
       environment: "test",
       clientKey: clientKey, // Mandatory. clientKey from Customer Area
       paymentMethodsResponse,
-      amount: '35123543',
-      removePaymentMethods: ["paysafecard", "c_cash"],
-      brandsConfiguration: {
-        amex: {icon: 'https://checkoutshopper-test.adyen.com/checkoutshopper/images/logos/visa.svg'}
-      },
+      amount: '35123',
 
       paymentMethodsConfiguration: {
         paypal: paypalConfiguration,
       },
       
-      onChange: (state, component) => {
-        updateStateContainer(state); // Demo purposes only
-      },
 
       onSubmit: (state, dropin) => {
         makePayment(state.data)
@@ -54,12 +49,9 @@ getClientKey().then((clientKey) => {
 
      onError: (e) => {
       console.log(e);
-      dropin.setStatus("error", {message: "help im broken"})
       },
 
       onAdditionalDetails: (state, dropin) => {
-
-        console.log("details is firing")
         submitDetails(state.data)
           .then((response) => {
             if (response.action) {
@@ -87,11 +79,7 @@ getClientKey().then((clientKey) => {
     // 2. Create and mount the Component
     const dropin = checkout
       .create("dropin", {
-        // Events
-        onSelect: (activeComponent) => {
-          if (activeComponent.state && activeComponent.state.data)
-            updateStateContainer(activeComponent.data); // Demo purposes only
-        },
+        
       })
       .mount("#dropin-container");
   });
