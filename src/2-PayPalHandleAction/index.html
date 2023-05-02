@@ -21,24 +21,23 @@
         <div class="checkout-container">
           <a href="../">Back</a>
 
-          <h1>Correlates to Section Other Problem 3</h1>
-          <h3>
-            Please "Inspect" element, go to "Sources" in the browser console and
-            check the "dropin.js" file for implementation references!
-          </h3>
+          <h1>Directions</h1>
+          <ul>
+            <li>Click PayPal Button</li>
+            <li>Copy timestamp from below - appears when button is clicked</li>
+            <li>
+              <current-time></current-time>
+            </li>
+            <li>Paste timestampt +1 minute into Problem 3 in "Other" section</li>
+            <li>Can check transaction in logs by using ws_935512@Company.PaymentsMadeEasy + timestamp</li>
+          </ul>
+          
           <div class="payment-method">
             <div id="dropin-container">
               <!-- Drop-in will be rendered here -->
             </div>
             <div id="result-container"></div>
           </div>
-        </div>
-
-        <div class="info">
-          <h4>For best results in logs: </h4>
-          <p>Search using ws_935512@Company.PaymentsMadeEasy</p>
-          <p>Search 1 minute before timestamp printed below</p>
-          <current-time></current-time>
         </div>
       </div>
     <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/5.2.0/adyen.js"></script>

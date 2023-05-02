@@ -40,7 +40,6 @@ getClientKey().then((clientKey) => {
             dropin.setStatus("loading");
             if (response.action) {
               dropin.handleAction(response.action);
-              console.log('Timestamp time is', date.getHours(), ":", date.getMinutes(), ":", date.getSeconds(), ":", date.getMilliseconds())
             } else if (response.resultCode === "Authorised") {
               dropin.setStatus("success", { message: "Payment successful!" });
               setTimeout(function () {

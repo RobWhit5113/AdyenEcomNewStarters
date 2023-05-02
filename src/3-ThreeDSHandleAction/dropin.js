@@ -35,7 +35,13 @@ getClientKey().then((clientKey) => {
           .then((response) => {
             dropin.setStatus("loading");
             if (response.action) {
-              console.log('Timestamp time is', date.getHours(), ":", date.getMinutes(), ":", date.getSeconds(), ":", date.getMilliseconds())
+              class TimeComponent extends HTMLElement {
+                connectedCallback() {
+                    const date = new Date();
+                    this.innerHTML = `<h3>Timestamp: ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}</h3>`
+                }
+            } 
+            customElements.define('current-time', TimeComponent);
               // dropin.handleAction(response.action);
             } else if (response.resultCode === "Authorised") {
               dropin.setStatus("success", { message: "Payment successful!" });

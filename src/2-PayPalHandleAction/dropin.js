@@ -33,7 +33,7 @@ getClientKey().then((clientKey) => {
               class TimeComponent extends HTMLElement {
                 connectedCallback() {
                     const date = new Date();
-                    this.innerHTML = `<p>Timestamp: ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}</p>`
+                    this.innerHTML = `<h3>Timestamp: ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}</h3>`
                 }
             }           
             customElements.define('current-time', TimeComponent);
