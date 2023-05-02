@@ -18,7 +18,7 @@ const paymentMethodsConfig = {
 
 const paymentsDefaultConfig = {
   shopperReference: "Checkout Components sample code test",
-  reference: "Checkout Components sample code test",
+  // reference: "Checkout Components sample code test",
   countryCode: "US",
   channel: "Web",
   returnUrl: setReturnUrl(),

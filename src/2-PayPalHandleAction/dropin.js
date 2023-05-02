@@ -2,7 +2,7 @@
 getClientKey().then((clientKey) => {
   getPaymentMethods().then(async (paymentMethodsResponse) => {
 
-    console.log(paymentMethodsResponse)
+    
     
     const paypalConfiguration = {
       configuration: {
@@ -29,7 +29,16 @@ getClientKey().then((clientKey) => {
           .then((response) => {
             dropin.setStatus("loading");
             if (response.action) {
-              // dropin.handleAction(response.action); THIS IS THE ISSUE HERE!!!
+              //removed the handle action and adding dynamic timestamp?
+              class TimeComponent extends HTMLElement {
+                connectedCallback() {
+                    const date = new Date();
+                    this.innerHTML = `<p>Timestamp: ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}</p>`
+                }
+            }           
+            customElements.define('current-time', TimeComponent);
+            // all removed stuff 
+
             } else if (response.resultCode === "Authorised") {
               dropin.setStatus("success", { message: "Payment successful!" });
               setTimeout(function () {

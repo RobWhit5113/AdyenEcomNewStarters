@@ -2,6 +2,8 @@
 getClientKey().then((clientKey) => {
   getPaymentMethods().then(async (paymentMethodsResponse) => {
     
+    const date = new Date(); 
+
     const paypalConfiguration = {
       configuration: {
         merchantId: "2H3SV6643H24E",
@@ -21,22 +23,19 @@ getClientKey().then((clientKey) => {
       paymentMethodsResponse,
       amount: '35123543',
       removePaymentMethods: ["paysafecard", "c_cash"],
-      brandsConfiguration: {
-        amex: {icon: 'https://checkoutshopper-test.adyen.com/checkoutshopper/images/logos/visa.svg'}
-      },
-
+      reference: "threedsProb3",
 
       paymentMethodsConfiguration: {
         paypal: paypalConfiguration,
         sepa: sepaConfiguration
       },
       
-
       onSubmit: (state, dropin) => {
         makePayment(state.data)
           .then((response) => {
             dropin.setStatus("loading");
             if (response.action) {
+              console.log('Timestamp time is', date.getHours(), ":", date.getMinutes(), ":", date.getSeconds(), ":", date.getMilliseconds())
               // dropin.handleAction(response.action);
             } else if (response.resultCode === "Authorised") {
               dropin.setStatus("success", { message: "Payment successful!" });
