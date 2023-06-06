@@ -1,7 +1,7 @@
 # Welcome to the Adyen ECOM starter guide
 
 ## Purpose 
-The purpose of this repo was to create an easy way for Tech Support Trainers to quickly create realistic scenarios for new starters to practice using our tools. This repo is paired with the training problem document linked here (NEED TO ADD)
+The purpose of this repo was to create an easy way for Tech Support Trainers to quickly create realistic scenarios for new starters to practice using our tools. This repo is paired with the [training problem document linked here](https://docs.google.com/document/d/1k9ox23-8zJSanYp7l7z1jNkQosH9qpNKMkK2RQmZn8M/edit?usp=sharing).
 
 ## Requirements 
 * Code Editor 
